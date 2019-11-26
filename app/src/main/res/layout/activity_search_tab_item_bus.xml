@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+              android:gravity="center">
+
+    <ImageView android:layout_width="24dp" android:layout_height="24dp"
+               android:id="@+id/iv_tab_item_bus_icon"
+               android:tint="@color/gray400"
+               app:srcCompat="@drawable/baseline_directions_bus_white_48dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_marginLeft="4dp"
+              android:id="@+id/tv_tab_item_bus_text"
+              android:text="@string/tab_title_bus"
+              android:textSize="16sp"
+              android:textColor="@color/gray400"
+    />
+
+</LinearLayout>

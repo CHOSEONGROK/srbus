@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">SrBus</string>
+
+    <string name="textView_search_bus_or_station">버스 또는 정류장 검색</string>
+    <string name="textView_edit">편집</string>
+
+
+    <!-- Search Activity -->
+    <string name="edit_text_search_hint_bus">버스 검색</string>
+    <string name="edit_text_search_hint_station">정류장, ID검색</string>
+    <string name="tab_title_bus">버스</string>
+    <string name="tab_title_station">정류장</string>
+    <string name="button_text_delete_bus_history">버스 히스토리 삭제</string>
+    <string name="button_text_delete_station_history">정류장 히스토리 삭제</string>
+
+    <!-- Toast Message-->
+    <string name="toast_message_add_favorite">즐겨찾기가 추가되었습니다.</string>
+    <string name="toast_message_remove_favorite">즐겨찾기가 삭제되었습니다.</string>
+    <string name="toast_message_set_ride_alarm">승차알람이 설정되었습니다.</string>
+    <string name="toast_message_finish_ride_alarm">승차알람이 종료되었습니다.</string>
+    <string name="toast_message_bus_arrive_soon">버스가 곧 도착합니다.</string>
+
+    <!-- Alert Dialog -->
+    <string name="alert_dialog_title_remove_favorite_station">즐겨찾기를 삭제하시겠습니까?</string>
+    <string name="alert_dialog_message_remove_favorite_station">&#10;함께 저장한 버스 즐겨찾기도 삭제됩니다.</string>
+    <string name="alert_dialog_message_delete_recent_search_station_history">선택된 정류장 히스토리를 삭제하시겠습니까?</string>
+    <string name="alert_dialog_message_delete_all_recent_search_station_history">정류장 히스토리를 모두 삭제하시겠습니까?</string>
+    <string name="alert_dialog_title_finish_ride_alarm">승차알람을 종료하시겠습니까?</string>
+    <string name="alert_dialog_title_reset_ride_alarm">이미 설정되어 있는 승차알람이 있습니다.&#10;재설정하시겠습니까?</string>
+
+
+
+
+    <!--  -->
+    <string name="service_key">VsIBhZDg9dL3ZsR0PiQFvbL9mXiyUdeMXE2eDFz3aFKk8sFGiBPPSKsC968qKUTT3YadC933hHTv%2B9fEwisTbg%3D%3D</string>
+    <string name="todo">TODO</string>
+
+
+
+</resources>

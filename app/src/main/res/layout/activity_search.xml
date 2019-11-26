@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:id="@+id/container"
+        android:background="@android:color/white">
+
+    <ImageView android:layout_width="?attr/actionBarSize" android:layout_height="?attr/actionBarSize"
+               android:padding="8dp"
+               android:id="@+id/iv_back"
+               android:foreground="?attr/selectableItemBackground"
+               app:srcCompat="@drawable/baseline_keyboard_arrow_left_black_48dp"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText android:layout_width="0dp" android:layout_height="0dp"
+              android:layout_marginRight="16dp"
+              android:layout_marginTop="10dp" android:layout_marginBottom="10dp"
+              android:paddingLeft="16dp"
+              android:gravity="center_vertical"
+              android:id="@+id/edt_search"
+              android:imeOptions="actionSearch"
+              android:inputType="phone"
+              android:hint="@string/edit_text_search_hint_bus"
+              android:textSize="14sp"
+              android:textColor="@android:color/darker_gray"
+              android:background="@drawable/all_round_corner_background_gray"
+              android:foreground="?attr/selectableItemBackground"
+              app:layout_constraintLeft_toRightOf="@+id/iv_back" app:layout_constraintRight_toRightOf="parent"
+              app:layout_constraintTop_toTopOf="@id/iv_back" app:layout_constraintBottom_toBottomOf="@id/iv_back"/>
+
+    <ImageView android:layout_width="40dp" android:layout_height="0dp"
+               android:padding="5dp"
+               android:id="@+id/iv_delete"
+               android:tint="@color/gray500"
+               android:visibility="gone"
+               android:foreground="?attr/selectableItemBackground"
+               app:srcCompat="@drawable/baseline_cancel_white_48dp"
+               app:layout_constraintRight_toRightOf="@id/edt_search"
+               app:layout_constraintTop_toTopOf="@id/edt_search" app:layout_constraintBottom_toBottomOf="@id/edt_search"/>
+
+    <android.support.design.widget.TabLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:id="@+id/tabLayout"
+            app:tabIndicatorColor="@color/red500"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_back" app:layout_constraintRight_toRightOf="parent"/>
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="0dp" android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout" app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!-- Separator -->
+    <View android:layout_width="match_parent" android:layout_height="0.8dp" android:background="@color/gray400" app:layout_constraintTop_toTopOf="@+id/view_pager"/>
+
+    <!-- Soft Keyboard Input Type Choice Bar -->
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="45dp"
+            android:id="@+id/cl_soft_keyboard_input_type_choice_bar"
+            android:background="@color/gray800"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_marginLeft="16dp"
+                  android:paddingLeft="20dp" android:paddingRight="20dp"
+                  android:paddingTop="10dp" android:paddingBottom="10dp"
+                  android:gravity="center"
+                  android:id="@+id/tv_input_type_number"
+                  android:text="숫자"
+                  android:textSize="12dp"
+                  android:textColor="@color/white"
+                  android:foreground="?attr/selectableItemBackground"
+                  android:background="@drawable/activity_search_soft_keyboard_input_type_button_background_on"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_marginLeft="8dp"
+                  android:paddingLeft="20dp" android:paddingRight="20dp"
+                  android:paddingTop="10dp" android:paddingBottom="10dp"
+                  android:gravity="center"
+                  android:id="@+id/tv_input_type_normal"
+                  android:text="기본"
+                  android:textSize="12dp"
+                  android:textColor="@color/gray600"
+                  android:foreground="?attr/selectableItemBackground"
+                  android:background="@drawable/activity_search_soft_keyboard_input_type_button_background_off"
+                  app:layout_constraintLeft_toRightOf="@id/tv_input_type_number"
+                  app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView android:layout_width="wrap_content" android:layout_height="0dp"
+                   android:paddingTop="10dp" android:paddingBottom="10dp"
+                   android:id="@+id/iv_soft_keyboard_down"
+                   android:foreground="?attr/selectableItemBackground"
+                   app:srcCompat="@drawable/outline_keyboard_hide_white_48dp"
+                   app:layout_constraintRight_toRightOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/gray250">
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/recycler_view"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/white">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+            <ImageView android:layout_width="?attr/actionBarSize" android:layout_height="match_parent"
+                       android:padding="12dp"
+                       android:id="@+id/iv_drawer_open"
+                       android:foreground="?attr/selectableItemBackground"
+                       app:srcCompat="@drawable/baseline_menu_open_black_48dp"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView android:layout_width="0dp" android:layout_height="0dp"
+                      android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
+                      android:paddingLeft="16dp"
+                      android:id="@+id/tv_search"
+                      android:gravity="center_vertical"
+                      android:text="@string/textView_search_bus_or_station"
+                      android:textColor="@android:color/darker_gray"
+                      android:background="@drawable/all_round_corner_background_gray"
+                      android:foreground="?attr/selectableItemBackground"
+                      app:layout_constraintLeft_toRightOf="@+id/iv_drawer_open" app:layout_constraintRight_toLeftOf="@+id/tv_edit"
+                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView android:layout_width="?attr/actionBarSize" android:layout_height="0dp"
+                      android:padding="12dp"
+                      android:gravity="center"
+                      android:id="@+id/tv_edit"
+                      android:text="@string/textView_edit"
+                      android:textSize="16sp"
+                      android:foreground="?attr/selectableItemBackground"
+                      app:layout_constraintRight_toRightOf="parent"
+                      app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" app:layout_constraintBottom_toBottomOf="parent"
+                  android:background="@android:color/darker_gray"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_gravity="bottom|end"
+            android:id="@+id/fab"
+            android:src="@drawable/refresh"
+            android:tint="@color/white"
+            app:backgroundTint="@color/fab_background"
+    />
+
+</android.support.design.widget.CoordinatorLayout>

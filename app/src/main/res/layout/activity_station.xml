@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/white">
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/recycler_view"
+            android:scrollbars="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"/>
+
+    <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent" android:layout_height="@dimen/app_bar_height"
+            android:id="@+id/app_bar"
+            android:background="@color/gray500">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- Top large bar -->
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:id="@+id/cl_top_large_bar">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_marginTop="35dp"
+                          android:id="@+id/tv_station_number_large_bar"
+                          android:text="tv_station_number_large_bar"
+                          android:textColor="@color/white"
+                          android:textSize="14sp"
+                          app:layout_constraintTop_toTopOf="parent"
+                          app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_marginTop="6dp"
+                          android:id="@+id/tv_station_name_large_bar"
+                          android:text="tv_station_name_large_bar"
+                          android:textColor="@color/white"
+                          android:textSize="26sp"
+                          app:layout_constraintTop_toBottomOf="@id/tv_station_number_large_bar"
+                          app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_marginTop="8dp"
+                          android:id="@+id/tv_next_station_large_bar"
+                          android:textColor="@color/gray300"
+                          android:textSize="14sp"
+                          app:layout_constraintTop_toBottomOf="@id/tv_station_name_large_bar"
+                          app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"/>
+
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="35dp"
+                              android:layout_marginRight="20dp"
+                              android:layout_marginBottom="24dp"
+                              android:orientation="horizontal"
+                              android:gravity="center"
+                              android:id="@+id/ll_map_large_bar"
+                              android:background="@drawable/activity_station_top_large_bar_ll_map_background"
+                              app:layout_constraintHorizontal_chainStyle="packed"
+                              app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toLeftOf="@id/iv_favorite_large_bar"
+                              app:layout_constraintBottom_toBottomOf="parent">
+
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                               android:layout_marginLeft="20dp"
+                               app:srcCompat="@drawable/round_map_white_48dp"/>
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:layout_marginLeft="4dp" android:layout_marginRight="20dp"
+                              android:text="지도"
+                              android:textSize="16sp"
+                              android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <ImageView android:layout_width="35dp" android:layout_height="35dp"
+                           android:padding="8dp"
+                           android:id="@+id/iv_favorite_large_bar"
+                           android:background="@drawable/activity_station_top_large_bar_ll_map_background"
+                           android:tint="@color/white"
+                           android:foreground="?attr/selectableItemBackground"
+                           app:srcCompat="@drawable/baseline_favorite_white_48dp"
+                           app:layout_constraintLeft_toRightOf="@id/ll_map_large_bar" app:layout_constraintRight_toRightOf="parent"
+                           app:layout_constraintBottom_toBottomOf="@id/ll_map_large_bar"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <!-- Top small bar -->
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin">
+
+                <ImageView android:layout_width="?attr/actionBarSize" android:layout_height="?attr/actionBarSize"
+                           android:padding="10dp"
+                           android:id="@+id/iv_back"
+                           android:tint="@color/white"
+                           android:foreground="?attr/selectableItemBackground"
+                           app:srcCompat="@drawable/baseline_keyboard_arrow_left_black_48dp"
+                           app:layout_constraintLeft_toLeftOf="parent"
+                           app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:layout_marginLeft="4dp"
+                          android:id="@+id/tv_station_name_small_bar"
+                          android:textSize="20sp"
+                          android:textColor="@color/white"
+                          android:visibility="gone"
+                          app:layout_constraintLeft_toRightOf="@id/iv_back"
+                          app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView android:layout_width="45dp" android:layout_height="?attr/actionBarSize"
+                           android:paddingTop="15dp" android:paddingBottom="15dp"
+                           android:id="@+id/iv_map_small_bar"
+                           android:foreground="?attr/selectableItemBackground"
+                           android:visibility="gone"
+                           app:srcCompat="@drawable/round_map_white_48dp"
+                           app:layout_constraintRight_toLeftOf="@id/iv_favorite_small_bar"
+                           app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView android:layout_width="45dp" android:layout_height="?attr/actionBarSize"
+                           android:paddingTop="15dp" android:paddingBottom="15dp"
+                           android:id="@+id/iv_favorite_small_bar"
+                           android:foreground="?attr/selectableItemBackground"
+                           android:tint="@color/white"
+                           android:visibility="gone"
+                           app:srcCompat="@drawable/baseline_favorite_white_48dp"
+                           app:layout_constraintRight_toLeftOf="@id/iv_home_small_bar"
+                           app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView android:layout_width="45dp" android:layout_height="?attr/actionBarSize"
+                           android:layout_marginRight="8dp"
+                           android:paddingTop="15dp" android:paddingBottom="15dp"
+                           android:id="@+id/iv_home_small_bar"
+                           android:foreground="?attr/selectableItemBackground"
+                           app:srcCompat="@drawable/round_home_white_48dp"
+                           app:layout_constraintRight_toRightOf="parent"
+                           app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_gravity="bottom|end"
+            android:id="@+id/fab"
+            android:src="@drawable/refresh"
+            android:tint="@color/white"
+            app:backgroundTint="@color/fab_background"
+    />
+
+</android.support.design.widget.CoordinatorLayout>

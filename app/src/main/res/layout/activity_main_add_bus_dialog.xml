@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/activity_main_add_bus_dialog_background">
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_marginLeft="24dp"
+              android:id="@+id/tv_station_name"
+              android:text="문래역"
+              android:textSize="18sp"
+              android:textColor="@color/black"
+              android:textStyle="bold"
+              app:layout_constraintVertical_chainStyle="packed"
+              app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@id/tv_next_station"
+              app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:layout_marginTop="2dp"
+              android:id="@+id/tv_next_station"
+              android:text="문래우체국 방향"
+              android:textSize="12sp"
+              android:textColor="@color/gray600"
+              app:layout_constraintTop_toBottomOf="@id/tv_station_name" app:layout_constraintBottom_toBottomOf="@id/separator"
+              app:layout_constraintLeft_toLeftOf="@+id/tv_station_name"/>
+
+    <ImageView android:layout_width="50dp" android:layout_height="50dp"
+               android:layout_marginRight="8dp"
+               android:padding="8dp"
+               android:id="@+id/iv_close"
+               android:tint="@color/gray700"
+               android:foreground="?attr/selectableItemBackground"
+               app:srcCompat="@drawable/baseline_keyboard_arrow_down_black_48dp"
+               app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="@id/separator"
+               app:layout_constraintRight_toRightOf="parent"/>
+
+    <!-- Separator -->
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+          android:layout_marginTop="75dp" android:background="@color/gray300"
+          android:id="@+id/separator"
+          app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent" android:layout_height="500dp"
+            android:layout_marginTop="1dp"
+            android:id="@+id/recycler_view"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="@id/separator" app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
