@@ -23,6 +23,7 @@ public class ArrBusItem implements Serializable {
     @Element(required = false) private String busRouteId;
     @Element(required = false) private String busType1;
     @Element(required = false) private String busType2;
+    @Element(required = false) private String congestion;
     @Element(required = false) private String deTourAt;
     @Element(required = false) private String firstTm;
     @Element(required = false) private String gpsX;
@@ -155,6 +156,9 @@ public class ArrBusItem implements Serializable {
 
     public String getBusType2() { return busType2; }
     public void setBusType2(String busType2) { this.busType2 = busType2; }
+
+    public String getCongestion() { return congestion; }
+    public void setCongestion(String congestion) { this.congestion = congestion; }
 
     public String getDeTourAt() { return deTourAt; }
     public void setDeTourAt(String deTourAt) { this.deTourAt = deTourAt; }
