@@ -13,6 +13,7 @@ import com.example.srbus.R
 import com.example.srbus.data.remote.arrBus.ArrBus
 import com.example.srbus.data.remote.arrBus.ArrBusItem
 import com.example.srbus.presentation.alarm.AlarmActivity
+import com.example.srbus.presentation.main.MainActivity
 import com.example.srbus.retrofit.NetRetrofit
 import com.example.srbus.utils.Constants
 import com.example.srbus.utils.Util
@@ -102,6 +103,8 @@ class RideAlarmService : Service() {
         }
     }
 
+
+
     private fun getNotification(
         busNumber: String, remainingTimeMin: String, remainingStation: String?,
         stationName: String, arsId: String, bosRouteId: String, vehId: String, isLast: Boolean
@@ -110,11 +113,14 @@ class RideAlarmService : Service() {
             putExtra(Constants.INTENT_KEY_ARSID, arsId)
             putExtra(Constants.INTENT_KEY_BUS_NUMBER, busNumber)
             putExtra(Constants.INTENT_KEY_STATION_NAME, stationName)
+//            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         val pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val actionIntent = Intent(this, RideAlarmService::class.java).apply {
+//            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             putExtra(Constants.INTENT_KEY_FINISH_RIDE_ALARM, true)
+            action = "stopService"
         }
         val actionPendingIntent = PendingIntent.getActivity(
             this, Constants.REQUEST_CODE_FINISH_RIDE_ALARM, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT
@@ -146,7 +152,6 @@ class RideAlarmService : Service() {
             .setExtras(bundle)
             .setDefaults(NotificationCompat.DEFAULT_VIBRATE)
             .priority = NotificationCompat.PRIORITY_HIGH
-
 
         return builder.build()
     }

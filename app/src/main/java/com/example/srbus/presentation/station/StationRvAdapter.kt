@@ -1,6 +1,7 @@
 package com.example.srbus.presentation.station
 
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.*
 import com.example.srbus.R
 import com.example.srbus.data.remote.arrBus.ArrBus
 import com.example.srbus.data.remote.arrBus.ArrBusItem
+import com.example.srbus.presentation.alarm.AlarmPresenter
 import kotlinx.android.synthetic.main.activity_station_rv_item_contents.view.*
 import kotlinx.android.synthetic.main.activity_station_rv_item_header.view.*
 import kotlinx.android.synthetic.main.loading_progressbar.view.*
@@ -108,8 +110,20 @@ class StationRvAdapter(
                         }
                     }
 
-                    ivBusAlarm.setOnClickListener {
-                        view.startAlarmActivity(arrBusItem.arsId, arrBusItem.stNm, arrBusItem.rtNm)
+                    with (holder.ivBusAlarm) {
+                        if (AlarmPresenter.isRunningRideAlarmService(context, arrBusItem)) {
+                            setImageResource(R.drawable.baseline_alarm_on_black_48dp)
+                            setColorFilter(ContextCompat.getColor(context, R.color.white))
+                            setBackgroundResource(R.drawable.activity_main_add_bus_dialog_button_orange_bg)
+                        } else {
+                            setImageResource(R.drawable.baseline_alarm_off_black_48dp)
+                            setColorFilter(ContextCompat.getColor(context, R.color.gray400))
+                            setBackgroundResource(R.drawable.activity_main_add_bus_dialog_button_white_bg)
+                        }
+
+                        setOnClickListener { v ->
+                            view.startAlarmActivity(arrBusItem.arsId, arrBusItem.stNm, arrBusItem.rtNm)
+                        }
                     }
                 }
             }

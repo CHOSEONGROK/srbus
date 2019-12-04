@@ -23,15 +23,58 @@ class AlarmPresenter(
 ) : AlarmContract.Presenter {
     private val TAG = javaClass.simpleName
 
-    enum class RideAlarm { NO_RUNNING, RUNNING_SAME_BUS_AND_SAME_VEHICLE, RUNNING_SAME_BUS_BUT_ANOTHER_VEHICLE, RUNNING_ANOTHER_BUS, ERROR }
+    enum class RideAlarm { NO_RUNNING, RUNNING_SAME_BUS_AND_SAME_VEHICLE, RUNNING_SAME_BUS_BUT_ANOTHER_VEHICLE, RUNNING_ANOTHER_BUS }
 
     private val context = view as AlarmActivity
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val repository = AlarmRepository(context)
     private var timer: Timer? = null
 
-    override var arrBus: ArrBus? = null
-    private var arrBusItem: ArrBusItem? = null
+    private var arrBus: ArrBus? = null
+    override var arrBusItem: ArrBusItem? = null
+
+    companion object {
+        fun isRunningRideAlarmService(context: Context, bus: ArrBusItem): Boolean =
+            when (getRideAlarmServiceState(context, bus, 1)) {
+                RideAlarm.RUNNING_SAME_BUS_AND_SAME_VEHICLE,
+                RideAlarm.RUNNING_SAME_BUS_BUT_ANOTHER_VEHICLE -> true
+                else -> false
+            }
+
+        fun getRideAlarmServiceState(context: Context, bus: ArrBusItem, ordinal: Int): RideAlarm {
+            var result = RideAlarm.NO_RUNNING
+
+            if (Build.VERSION.SDK_INT >= 26) {
+                (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).activeNotifications.forEach {
+                    if (it.notification.channelId == RideAlarmService.NOTIFICATION_CHANNEL_ID) {
+                        val notificationArsId = it.notification.extras.getString(Constants.INTENT_KEY_ARSID)
+                        val notificationBusRouteId = it.notification.extras.getString(Constants.INTENT_KEY_BUS_ROUTE_ID)
+                        val notificationVehicleId = it.notification.extras.getString(Constants.INTENT_KEY_BUS_VEHICLE_ID)
+                        val arsId = bus.arsId
+                        val busRouteId = bus.busRouteId
+                        val vehId = when (ordinal) {
+                            1 -> bus.vehId1
+                            2 -> bus.vehId2
+                            else -> throw IllegalArgumentException("ordinal number is not valid.")
+                        }
+
+                        if (notificationArsId == arsId && notificationBusRouteId == busRouteId) {
+                            if (notificationVehicleId == vehId) {
+                                result = RideAlarm.RUNNING_SAME_BUS_AND_SAME_VEHICLE
+                            } else {
+                                result = RideAlarm.RUNNING_SAME_BUS_BUT_ANOTHER_VEHICLE
+                            }
+                        } else {
+                            result = RideAlarm.RUNNING_ANOTHER_BUS
+                        }
+
+                        return@forEach
+                    }
+                }
+            }
+
+            return result
+        }
+    }
 
     override fun getArrBus(arsId: String?) {
         if (arsId == null)
@@ -56,44 +99,6 @@ class AlarmPresenter(
                 }
             }
         }, arsId)
-    }
-
-    override fun isRunningRideAlarmService(ordinal: Int): RideAlarm {
-        if (arrBusItem == null)
-            return RideAlarm.ERROR
-
-        var result = RideAlarm.NO_RUNNING
-
-        if (Build.VERSION.SDK_INT >= 26) {
-            notificationManager.activeNotifications.forEach {
-                if (it.notification.channelId == RideAlarmService.NOTIFICATION_CHANNEL_ID) {
-                    val notificationArsId = it.notification.extras.getString(Constants.INTENT_KEY_ARSID)
-                    val notificationBusRouteId = it.notification.extras.getString(Constants.INTENT_KEY_BUS_ROUTE_ID)
-                    val notificationVehicleId = it.notification.extras.getString(Constants.INTENT_KEY_BUS_VEHICLE_ID)
-                    val arsId = arrBusItem!!.arsId
-                    val busRouteId = arrBusItem!!.busRouteId
-                    val vehId = when (ordinal) {
-                        1 -> arrBusItem!!.vehId1
-                        2 -> arrBusItem!!.vehId2
-                        else -> throw IllegalArgumentException("ordinal number is not valid.")
-                    }
-
-                    if (notificationArsId == arsId && notificationBusRouteId == busRouteId) {
-                        if (notificationVehicleId == vehId) {
-                            result = RideAlarm.RUNNING_SAME_BUS_AND_SAME_VEHICLE
-                        } else {
-                            result = RideAlarm.RUNNING_SAME_BUS_BUT_ANOTHER_VEHICLE
-                        }
-                    } else {
-                        result = RideAlarm.RUNNING_ANOTHER_BUS
-                    }
-
-                    return@forEach
-                }
-            }
-        }
-
-        return result
     }
 
     override fun startRideAlarmService(ordinal: Int): Boolean {
@@ -174,7 +179,7 @@ class AlarmPresenter(
     }
 
     private fun updateViewAlarmButton(ordinal: Int) {
-        val alarmState = isRunningRideAlarmService(ordinal)
+        val alarmState = getRideAlarmServiceState(context, arrBusItem!!, ordinal)
         when (alarmState) {
             RideAlarm.RUNNING_SAME_BUS_AND_SAME_VEHICLE -> {
                 view.updateViewAlarmButton(ordinal, true)

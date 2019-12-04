@@ -17,6 +17,7 @@ import com.example.srbus.presentation.test.TestActivity
 import com.example.srbus.presentation.alarm.AlarmActivity
 import com.example.srbus.presentation.search.SearchActivity
 import com.example.srbus.presentation.station.StationActivity
+import com.example.srbus.service.RideAlarmService
 import com.example.srbus.utils.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main_contents.*
@@ -34,6 +35,12 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        intent?.let {
+            Log.d(TAG, "Intent On")
+            Log.d(TAG, "${it.getBooleanExtra(Constants.INTENT_KEY_FINISH_RIDE_ALARM, false)}")
+            stopService(Intent(this, RideAlarmService::class.java))
+        }
 
         presenter = MainPresenter(this)
 

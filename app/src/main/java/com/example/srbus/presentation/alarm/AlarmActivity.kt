@@ -3,6 +3,7 @@ package com.example.srbus.presentation.alarm
 import android.app.*
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.Bundle
@@ -180,7 +181,7 @@ class AlarmActivity : BaseActivity(), AlarmContract.View {
      * Private Functions.
      */
     private fun onClickAlarmButton(ordinal: Int) {
-        val alarmState = presenter.isRunningRideAlarmService(ordinal)
+        val alarmState = AlarmPresenter.getRideAlarmServiceState(this, presenter.arrBusItem!!, ordinal)
 
         when (alarmState) {
             AlarmPresenter.RideAlarm.NO_RUNNING -> {
@@ -193,7 +194,6 @@ class AlarmActivity : BaseActivity(), AlarmContract.View {
             AlarmPresenter.RideAlarm.RUNNING_ANOTHER_BUS -> {
                 showAlertDialog(ordinal, alarmState)
             }
-            AlarmPresenter.RideAlarm.ERROR -> Log.e(TAG, "AlarmPresenter.RideAlarm.ERROR")
         }
     }
 }

@@ -6,7 +6,7 @@
 
 (완료)5. SearchStationFragmentRvAdapter 의 increase20ItemsToShow 함수 마무리하기.
 
-6. 승차알람 설정했을때 MainActivity 에서 표시 안되는거 해결하기.
+(완료)6. 승차알람 설정했을때 MainActivity & StationActivity 에서 표시 안되는거 해결하기.
 
 7. SAM 변환 가능한지 알아보기.
 

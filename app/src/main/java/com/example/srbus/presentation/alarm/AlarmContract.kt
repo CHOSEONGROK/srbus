@@ -1,6 +1,6 @@
 package com.example.srbus.presentation.alarm
 
-import com.example.srbus.data.remote.arrBus.ArrBus
+import com.example.srbus.data.remote.arrBus.ArrBusItem
 
 interface AlarmContract {
 
@@ -12,16 +12,13 @@ interface AlarmContract {
 
         fun updateViewAlarmButton(ordinal: Int, alarmOn: Boolean)
         fun showAlertDialog(ordinal: Int, alarmState: AlarmPresenter.RideAlarm)
-
-
     }
 
     interface Presenter {
-        var arrBus: ArrBus?
+        var arrBusItem: ArrBusItem?
 
         fun getArrBus(arsId: String?)
 
-        fun isRunningRideAlarmService(ordinal: Int): AlarmPresenter.RideAlarm
         fun startRideAlarmService(ordinal: Int): Boolean
         fun stopRideAlarmService()
 

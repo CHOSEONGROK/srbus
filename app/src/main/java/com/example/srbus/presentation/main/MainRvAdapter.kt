@@ -1,6 +1,9 @@
 package com.example.srbus.presentation.main
 
+import android.app.NotificationManager
+import android.content.Context
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +17,7 @@ import com.example.srbus.R
 import com.example.srbus.data.local.favorite.FavoriteStationInBus
 import com.example.srbus.data.local.favorite.FavoriteStation
 import com.example.srbus.data.remote.arrBus.ArrBus
+import com.example.srbus.presentation.alarm.AlarmPresenter
 import kotlinx.android.synthetic.main.activity_main_rv_item_bus.view.*
 import kotlinx.android.synthetic.main.activity_main_rv_item_station.view.*
 import kotlinx.android.synthetic.main.loading_progressbar.view.*
@@ -109,8 +113,20 @@ class MainRvAdapter(
                                 holder.llSecondBusRemainingStation.visibility = View.GONE
                             }
 
-                            holder.ivBusAlarm.setOnClickListener { v ->
-                                view.startAlarmActivity(busItem.arsId, busItem.stNm, busItem.rtNm)
+                            with (holder.ivBusAlarm) {
+                                if (AlarmPresenter.isRunningRideAlarmService(activity, busItem)) {
+                                    setImageResource(R.drawable.baseline_alarm_on_black_48dp)
+                                    setColorFilter(ContextCompat.getColor(activity, R.color.white))
+                                    setBackgroundResource(R.drawable.activity_main_add_bus_dialog_button_orange_bg)
+                                } else {
+                                    setImageResource(R.drawable.baseline_alarm_off_black_48dp)
+                                    setColorFilter(ContextCompat.getColor(activity, R.color.gray400))
+                                    setBackgroundResource(R.drawable.activity_main_add_bus_dialog_button_white_bg)
+                                }
+
+                                setOnClickListener { v ->
+                                    view.startAlarmActivity(busItem.arsId, busItem.stNm, busItem.rtNm)
+                                }
                             }
                         }
                     }
