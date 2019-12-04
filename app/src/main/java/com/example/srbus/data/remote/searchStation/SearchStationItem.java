@@ -3,8 +3,7 @@ package com.example.srbus.data.remote.searchStation;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import com.example.srbus.R;
-import com.example.srbus.data.local.recentSearchStation.RecentSearchStation;
-import com.example.srbus.utils.Util;
+import com.example.srbus.data.local.searchStationHistory.SearchStationHistory;
 import org.jetbrains.annotations.Nullable;
 import org.simpleframework.xml.Element;
 
@@ -60,8 +59,8 @@ public class SearchStationItem implements Serializable {
     public void setFavorite(boolean favorite) { isFavorite = favorite; }
 
     @Nullable
-    public RecentSearchStation convert() {
-        return new RecentSearchStation(null, arsId, posX, posY, stId, stNm, tmX, tmY);
+    public SearchStationHistory convert() {
+        return new SearchStationHistory(null, arsId, posX, posY, stId, stNm, tmX, tmY);
     }
 
     @Override

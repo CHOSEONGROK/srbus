@@ -4,7 +4,7 @@
 
 4. MainActivity 의 HorizontalSlider 마무리하기. (이름도 더 좋은걸로 바꾸기)
 
-5. SearchStationFragmentRvAdapter 의 increase20ItemsToShow 함수 마무리하기.
+(완료)5. SearchStationFragmentRvAdapter 의 increase20ItemsToShow 함수 마무리하기.
 
 6. 승차알람 설정했을때 MainActivity 에서 표시 안되는거 해결하기.
 

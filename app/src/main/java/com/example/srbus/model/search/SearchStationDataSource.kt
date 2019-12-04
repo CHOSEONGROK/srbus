@@ -1,13 +1,12 @@
 package com.example.srbus.model.search
 
 import android.content.Context
-import android.os.Handler
 import android.util.Log
 import com.example.srbus.data.local.favorite.FavoriteStation
 import com.example.srbus.data.local.favorite.FavoriteStationDB
-import com.example.srbus.data.local.favorite.FavoriteStationDao
 import com.example.srbus.data.local.favorite.FavoriteStationInBusDB
-import com.example.srbus.data.local.recentSearchStation.RecentSearchStationDB
+import com.example.srbus.data.local.searchStationHistory.SearchStationHistory
+import com.example.srbus.data.local.searchStationHistory.SearchStationHistoryDB
 import com.example.srbus.data.remote.searchStation.SearchStationItem
 import com.example.srbus.data.remote.searchStation.SearchStation
 import com.example.srbus.retrofit.NetRetrofit
@@ -23,9 +22,9 @@ class SearchStationDataSource(
 ) : SearchStationSource {
     private val TAG = javaClass.simpleName
 
-    private val recentSearchStationDao = RecentSearchStationDB
+    private val searchStationHistoryDao = SearchStationHistoryDB
         .getInstance(context)
-        .recentSearchStationDao()
+        .searchStationHistoryDao()
 
     private val favoriteStationDao = FavoriteStationDB
         .getInstance(context)
@@ -35,9 +34,6 @@ class SearchStationDataSource(
         .getInstance(context)
         .favoriteStationInBusDao()
 
-    init {
-//        recentSearchStationDao.deleteAll()
-    }
 
     override fun getSearchStation(callback: SearchStationSource.LoadDataCallBack, stSrch: String) {
         GlobalScope.launch(Dispatchers.Default) {
@@ -58,40 +54,40 @@ class SearchStationDataSource(
 
     override fun insertRecentSearchStation(station: SearchStationItem) {
         station.convert()?.let {
-            if (recentSearchStationDao
-                    .getRecentSearchStationByArsId(it.arsId)
+            if (searchStationHistoryDao
+                    .select(it.arsId)
                     .isEmpty()
             ) {
-                recentSearchStationDao.insert(it)
+                searchStationHistoryDao.insert(it)
             } else {
-                recentSearchStationDao.delete(it.arsId)
-                recentSearchStationDao.insert(it)
+                searchStationHistoryDao.delete(it.arsId)
+                searchStationHistoryDao.insert(it)
             }
         }
     }
 
-    override fun deleteAllRecentSearchStation() {
-        recentSearchStationDao.deleteAll()
+    override fun deleteAllSearchStationHistories() {
+        searchStationHistoryDao.deleteAll()
     }
 
-    override fun deleteRecentSearchStation(arsId: String) {
-        recentSearchStationDao.delete(arsId)
+    override fun deleteSearchStationHistory(arsId: String) {
+        searchStationHistoryDao.delete(arsId)
     }
 
-    override fun getRecentSearchStation(callback: SearchStationSource.LoadRecentSearchStationCallBack) {
-        callback.onLoadData(recentSearchStationDao.getAllRecentSearchStation())
+    override fun getSearchStationHistories(callback: SearchStationSource.LoadRecentSearchStationCallBack) {
+        callback.onLoadData(searchStationHistoryDao.selectAll())
     }
 
     override fun getAllFavoriteStations(): List<FavoriteStation>
             = favoriteStationDao.getAllFavoriteStation()
 
-    override fun addFavoriteStation(station: SearchStationItem) {
+    override fun addFavoriteStation(station: SearchStationHistory) {
         favoriteStationDao.insert(
             FavoriteStation(null, station.arsId, station.stId, station.stNm, "")
         )
     }
 
-    override fun removeFavoriteStation(station: SearchStationItem) {
+    override fun removeFavoriteStation(station: SearchStationHistory) {
         favoriteStationDao.delete(station.arsId)
         favoriteStationInBusDao.deleteByArsId(station.arsId)
     }

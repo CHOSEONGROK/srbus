@@ -1,10 +1,8 @@
 package com.example.srbus.presentation.search
 
-import android.app.AlertDialog
 import android.util.Log
-import com.example.srbus.R
 import com.example.srbus.data.local.favorite.FavoriteStation
-import com.example.srbus.data.local.recentSearchStation.RecentSearchStation
+import com.example.srbus.data.local.searchStationHistory.SearchStationHistory
 import com.example.srbus.data.remote.searchStation.SearchStationItem
 import com.example.srbus.data.remote.searchStation.SearchStation
 import com.example.srbus.model.search.SearchStationRepository
@@ -20,36 +18,59 @@ class SearchStationPresenter(
     override fun getSearchStation(keyword: String) {
         repository.getSearchStation(object : SearchStationSource.LoadDataCallBack {
             override fun onLoadData(searchStation: SearchStation?) {
-                if (searchStation != null) {
+                if (searchStation != null && searchStation.msgBody.itemList.isNotEmpty()) {
+                    view.hideNoSearchHistoryMessage()
+                    view.hideNoSearchResultMessage()
                     view.showSearchStation(searchStation)
                 } else {
                     Log.e(TAG, "onLoadData(null)")
+                    view.hideRecyclerView()
+                    view.hideNoSearchHistoryMessage()
+                    view.showNoSearchResultMessage()
                 }
             }
         }, keyword)
     }
 
-    override fun insertRecentSearchStation(station: SearchStationItem) {
+    override fun insertSearchStationHistory(station: SearchStationItem) {
         repository.insertRecentSearchStation(station)
     }
 
-    override fun getRecentSearchStation() {
-        repository.getRecentSearchStation(object : SearchStationSource.LoadRecentSearchStationCallBack {
-            override fun onLoadData(stations: List<RecentSearchStation>) {
-                view.showRecentSearchStation(stations)
+    override fun getSearchStationHistories() {
+        val favoriteStations = getAllFavoriteStations()
+
+        repository.getSearchStationHistories(object : SearchStationSource.LoadRecentSearchStationCallBack {
+            override fun onLoadData(stations: List<SearchStationHistory>) {
+                if (stations.isNotEmpty()) {
+                    stations.forEachIndexed { _, station ->
+                        favoriteStations.forEach { favorite ->
+                            if (station.stId == favorite.stId) {
+                                station.isFavorite = true
+                                return@forEach
+                            }
+                        }
+                    }
+                    view.hideNoSearchHistoryMessage()
+                    view.hideNoSearchResultMessage()
+                    view.showSearchStationHistory(stations)
+                } else {
+                    view.hideRecyclerView()
+                    view.hideNoSearchResultMessage()
+                    view.showNoSearchHistoryMessage()
+                }
             }
         })
     }
 
-    override fun deleteAllRecentSearchStation() {
-        repository.deleteAllRecentSearchStation()
+    override fun deleteAllSearchStationHistories() {
+        repository.deleteAllSearchStationHistories()
     }
 
-    override fun deleteRecentSearchStation(arsId: String) {
-        repository.deleteRecentSearchStation(arsId)
-        repository.getRecentSearchStation(object : SearchStationSource.LoadRecentSearchStationCallBack {
-            override fun onLoadData(stations: List<RecentSearchStation>) {
-                view.showRecentSearchStation(stations)
+    override fun deleteSearchStationHistory(arsId: String) {
+        repository.deleteSearchStationHistory(arsId)
+        repository.getSearchStationHistories(object : SearchStationSource.LoadRecentSearchStationCallBack {
+            override fun onLoadData(stations: List<SearchStationHistory>) {
+                view.showSearchStationHistory(stations)
             }
         })
     }
@@ -57,11 +78,11 @@ class SearchStationPresenter(
     override fun getAllFavoriteStations(): List<FavoriteStation>
             = repository.getAllFavoriteStations()
 
-    override fun addFavoriteStation(station: SearchStationItem) {
+    override fun addFavoriteStation(station: SearchStationHistory) {
         repository.addFavoriteStation(station)
     }
 
-    override fun removeFavoriteStation(station: SearchStationItem) {
+    override fun removeFavoriteStation(station: SearchStationHistory) {
         repository.removeFavoriteStation(station)
     }
 }

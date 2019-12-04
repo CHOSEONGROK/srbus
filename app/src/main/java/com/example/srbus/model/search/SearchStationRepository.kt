@@ -2,7 +2,7 @@ package com.example.srbus.model.search
 
 import android.content.Context
 import com.example.srbus.data.local.favorite.FavoriteStation
-import com.example.srbus.data.local.recentSearchStation.RecentSearchStation
+import com.example.srbus.data.local.searchStationHistory.SearchStationHistory
 import com.example.srbus.data.remote.searchStation.SearchStationItem
 import com.example.srbus.data.remote.searchStation.SearchStation
 
@@ -24,17 +24,17 @@ class SearchStationRepository(
         dataSource.insertRecentSearchStation(station)
     }
 
-    override fun deleteAllRecentSearchStation() {
-        dataSource.deleteAllRecentSearchStation()
+    override fun deleteAllSearchStationHistories() {
+        dataSource.deleteAllSearchStationHistories()
     }
 
-    override fun deleteRecentSearchStation(arsId: String) {
-        dataSource.deleteRecentSearchStation(arsId)
+    override fun deleteSearchStationHistory(arsId: String) {
+        dataSource.deleteSearchStationHistory(arsId)
     }
 
-    override fun getRecentSearchStation(callback: SearchStationSource.LoadRecentSearchStationCallBack) {
-        dataSource.getRecentSearchStation(object : SearchStationSource.LoadRecentSearchStationCallBack {
-            override fun onLoadData(stations: List<RecentSearchStation>) {
+    override fun getSearchStationHistories(callback: SearchStationSource.LoadRecentSearchStationCallBack) {
+        dataSource.getSearchStationHistories(object : SearchStationSource.LoadRecentSearchStationCallBack {
+            override fun onLoadData(stations: List<SearchStationHistory>) {
                 callback.onLoadData(stations)
             }
         })
@@ -43,11 +43,11 @@ class SearchStationRepository(
     override fun getAllFavoriteStations(): List<FavoriteStation>
             = dataSource.getAllFavoriteStations()
 
-    override fun addFavoriteStation(station: SearchStationItem) {
+    override fun addFavoriteStation(station: SearchStationHistory) {
         dataSource.addFavoriteStation(station)
     }
 
-    override fun removeFavoriteStation(station: SearchStationItem) {
+    override fun removeFavoriteStation(station: SearchStationHistory) {
         dataSource.removeFavoriteStation(station)
     }
 }
