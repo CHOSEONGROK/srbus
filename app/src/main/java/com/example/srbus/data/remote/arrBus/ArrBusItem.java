@@ -20,6 +20,7 @@ public class ArrBusItem implements Serializable {
     @Element(required = false) private String arrmsgSec1;
     @Element(required = false) private String arrmsgSec2;
     @Element(required = false) private String arsId;
+    @Element(required = false) private String busRouteAbrv;
     @Element(required = false) private String busRouteId;
     @Element(required = false) private String busType1;
     @Element(required = false) private String busType2;
@@ -147,6 +148,9 @@ public class ArrBusItem implements Serializable {
 
     public String getArsId() { return arsId; }
     public void setArsId(String arsId) { this.arsId = arsId; }
+
+    public String getBusRouteAbrv() { return busRouteAbrv; }
+    public void setBusRouteAbrv(String busRouteAbrv) { this.busRouteAbrv = busRouteAbrv; }
 
     public String getBusRouteId() { return busRouteId; }
     public void setBusRouteId(String busRouteId) { this.busRouteId = busRouteId; }
