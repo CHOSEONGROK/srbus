@@ -40,6 +40,6 @@
 
 ## Youtube Video
 
-[![Video Label](https://img.youtube.com/vi/mzymEDLK_8I/2.jpg)](https://youtu.be/mzymEDLK_8I)
+[![Video Label](https://img.youtube.com/vi/mzymEDLK_8I/0.jpg)](https://youtu.be/mzymEDLK_8I)
 
 ⬆️ 위 이미지 클릭 시 유튜브로 연결됩니다.
